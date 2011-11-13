@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div>
+    Log In Using <a rel="nofollow" href="{% url socialauth_begin "foursquare" %}">Foursquare</a>
+</div>
+{% endblock %}

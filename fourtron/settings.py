@@ -15,10 +15,10 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'fourtron',                      # Or path to database file if using sqlite3.
+        'USER': 'fourtron',                      # Not used with sqlite3.
+        'PASSWORD': 'fourtron0password',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
@@ -117,6 +117,15 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.contrib.messages.context_processors.messages',
+	'social_auth.context_processors.social_auth_by_type_backends',
+)
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -132,7 +141,27 @@ INSTALLED_APPS = (
     'paging',
     'sentry',
     'sentry.client',
+    'social_auth',
+    'core',
 )
+
+AUTHENTICATION_BACKENDS = (
+    'social_auth.backends.contrib.foursquare.FoursquareBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+FOURSQUARE_CONSUMER_KEY      = 'JX0AP5DRTCEGOWP3JJGGU0YXA4JX2RZMYECP0VRBYLKOAB12'
+FOURSQUARE_CONSUMER_SECRET   = 'PEPSGNMKYU3ZGIYTB2B54TF2V3MRAR1XR4IVLXNXZ0GWAHMP'
+
+SOCIAL_AUTH_CREATE_USERS          = True
+SOCIAL_AUTH_FORCE_RANDOM_USERNAME = False
+SOCIAL_AUTH_DEFAULT_USERNAME      = 'socialauth_user'
+#SOCIAL_AUTH_COMPLETE_URL_NAME     = 'oauth_return'
+#SOCIAL_AUTH_COMPLETE_URL_NAME     = 'socialauth_complete'
+SOCIAL_AUTH_ERROR_KEY             = 'socialauth_error'
+SOCIAL_AUTH_USER_MODEL            = 'core.CustomUser'
+
+LOGIN_URL = '/oauth/'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

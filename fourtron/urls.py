@@ -1,17 +1,14 @@
-from django.conf.urls.defaults import patterns, include, url
-
-# Uncomment the next two lines to enable the admin:
 from django.contrib import admin
+from django.conf.urls.defaults import patterns, include, url
+from fourtron.core.views import index, oauth, oauth_logout, oauth_error
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
-    url(r'^$', 'fourtron.core.views.index'),
-    #url(r'^home/', include('photostream.home.urls')),
-
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
+    url(r'^$', index, name="index"),
+    url(r'^oauth', oauth, name="oauth"),
+    url(r'^oauth_error/$', oauth_error, name='oauth_error'),
+    url(r'^oauth_logout/$', oauth_logout, name='oauth_logout'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'', include('social_auth.urls')),
 )
